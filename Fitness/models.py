@@ -63,6 +63,39 @@ class ClientNutritionPreference(models.Model):
     percentage_carbs = models.DecimalField(blank=False, null=False, db_column="percentage_carbs", verbose_name="Carbs Percentage", max_digits=3, decimal_places=2, validators=[MinValueValidator(0)])
     percentage_proteins = models.DecimalField(blank=False, null=False, db_column="percentage_proteins", verbose_name="Proteins Percentage", max_digits=3, decimal_places=2, validators=[MinValueValidator(0)])
 
+    def extra_calories_property(self):
+        return '%s kcal' % (str(round(self.extra_calories)))
+
+    def fat_property(self):
+        return str(round(self.percentage_fat*100)) + '%'
+
+    def carbs_property(self):
+        return str(round(self.percentage_carbs*100)) + '%'
+
+    def proteins_property(self):
+        return str(round(self.percentage_proteins*100)) + '%'
+
+    extra_calories_property.short_description = 'Calories en kcal'
+    extra_calories_property.admin_order_field = 'extra_calories'
+
+    full_extra_calories = property(extra_calories_property)
+
+    fat_property.short_description = 'Fat en g'
+    fat_property.admin_order_field = 'taux_fat'
+
+    full_fat = property(fat_property)
+
+    carbs_property.short_description = 'Carbs en g'
+    carbs_property.admin_order_field = 'taux_carbs'
+
+    full_carbs = property(carbs_property)
+
+    proteins_property.short_description = 'Proteins en g'
+    proteins_property.admin_order_field = 'taux_proteins'
+
+    full_proteins = property(proteins_property)
+
+
     def __str__(self):
         return "Preferences of %s" % self.client
 
@@ -115,7 +148,7 @@ class ClientBaseNutrition(models.Model):
     full_fat = property(fat_property)
 
     carbs_property.short_description = 'Carbs en g'
-    kcalories_property.admin_order_field = 'taux_carbs'
+    carbs_property.admin_order_field = 'taux_carbs'
 
     full_carbs = property(carbs_property)
 

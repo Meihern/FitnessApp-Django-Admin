@@ -30,4 +30,4 @@ class ClientBaseNutritionAdmin(admin.ModelAdmin):
 
 @admin.register(ClientNutritionPreference)
 class ClientNutritionPreferenceAdmin(admin.ModelAdmin):
-    list_display = ('client', 'extra_calories', 'percentage_fat', 'percentage_carbs', 'percentage_proteins')
+    list_display = ('client', 'full_extra_calories', 'full_fat', 'full_carbs', 'full_proteins')
