@@ -1,8 +1,10 @@
 from django.contrib import admin
 from Fitness.models import Client, TrainingProgram, Nutrition, ClientBaseNutrition, ClientNutritionPreference
 
-
 # Register your models here.
+admin.site.site_header = 'KN Fitness App'
+admin.site.site_title = 'KN Fitness App'
+admin.site.index_title = 'KN Fitness App'
 
 
 @admin.register(Client)
