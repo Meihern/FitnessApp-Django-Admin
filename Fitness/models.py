@@ -80,17 +80,17 @@ class ClientNutritionPreference(models.Model):
 
     full_extra_calories = property(extra_calories_property)
 
-    fat_property.short_description = 'Fat en g'
+    fat_property.short_description = '% de Fat'
     fat_property.admin_order_field = 'taux_fat'
 
     full_fat = property(fat_property)
 
-    carbs_property.short_description = 'Carbs en g'
+    carbs_property.short_description = '% de Carbs'
     carbs_property.admin_order_field = 'taux_carbs'
 
     full_carbs = property(carbs_property)
 
-    proteins_property.short_description = 'Proteins en g'
+    proteins_property.short_description = '% de Protéines'
     proteins_property.admin_order_field = 'taux_proteins'
 
     full_proteins = property(proteins_property)
