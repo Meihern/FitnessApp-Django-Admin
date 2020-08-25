@@ -76,8 +76,12 @@ WSGI_APPLICATION = 'FitnessApp.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'd2c2tj9gp9vhh3',
+        'HOST': 'ec2-18-210-180-94.compute-1.amazonaws.com',
+        'PORT': 5432,
+        'USER': 'tmumgwncycseyo',
+        'PASSWORD': 'f1a1a3cc5bd30fc3b62a850245f91e5bcd125e1b67ec220377d15ef3168d2879',
     }
 }
 
