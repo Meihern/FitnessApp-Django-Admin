@@ -58,7 +58,7 @@ class Client(models.Model):
 
 class ClientNutritionPreference(models.Model):
     client = models.OneToOneField('Client', on_delete=models.CASCADE, unique=True)
-    extra_calories = models.PositiveIntegerField(blank=False, null=False, db_column="extra_calories", verbose_name="Calories Extra")
+    extra_calories = models.IntegerField(blank=False, null=False, db_column="extra_calories", verbose_name="Calories Extra")
     percentage_fat = models.DecimalField(blank=False, null=False, db_column="percentage_fat", verbose_name="Fat Percentage", max_digits=3, decimal_places=2, validators=[MinValueValidator(0)])
     percentage_carbs = models.DecimalField(blank=False, null=False, db_column="percentage_carbs", verbose_name="Carbs Percentage", max_digits=3, decimal_places=2, validators=[MinValueValidator(0)])
     percentage_proteins = models.DecimalField(blank=False, null=False, db_column="percentage_proteins", verbose_name="Proteins Percentage", max_digits=3, decimal_places=2, validators=[MinValueValidator(0)])
@@ -206,7 +206,7 @@ class TrainingProgram(models.Model):
 
 
 class Nutrition(models.Model):
-    nom_repas = models.CharField(max_length=75, verbose_name="Repas", db_column="repas", null=False, blank=False)
+    nom_repas = models.TextField(verbose_name="Repas", db_column="repas", null=False, blank=False)
     qte_calories = models.FloatField(blank=False, verbose_name="Calories", null=False, db_column='Calories',
                                      validators=[MinValueValidator(0)])
     qte_fat = models.FloatField(blank=False, verbose_name="Fat", null=False, db_column="Fat",
