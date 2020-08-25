@@ -25,7 +25,7 @@ SECRET_KEY = 'n-t#gm!rsse!jaf3eow318==8nirv3dv9ivfxb(z#$8#j3hc_q'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['https://kn-fitness-app.herokuapp.com/', '127.0.0.1']
+ALLOWED_HOSTS = ['kn-fitness-app.herokuapp.com', '127.0.0.1']
 
 
 # Application definition
