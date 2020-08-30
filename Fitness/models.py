@@ -219,6 +219,40 @@ class TrainingProgram(models.Model):
         verbose_name_plural = "Training programs"
 
 
+class TrainingExercise(models.Model):
+    nom_exercise = models.CharField(max_length=50, db_column="exercice", null=True, blank=True,
+                                    verbose_name="Nom d'Exercice")
+    nombre_sets = models.PositiveSmallIntegerField(db_column="sets", null=True, blank=True,
+                                                   verbose_name="Nombre des Sets")
+    nombre_reps = models.PositiveSmallIntegerField(db_column="reps", null=True, blank=True,
+                                                   verbose_name="Nombre de Reps")
+
+    def __str__(self):
+        return self.nom_exercise
+
+    class Meta:
+        db_table = "Training Exercise"
+        verbose_name = "Exercice d'entraînement"
+        verbose_name_plural = "Exercices d'entraînements"
+
+
+class ClientTrainingDayProgram(models.Model):
+    client = models.ForeignKey('Client', on_delete=models.CASCADE)
+    training_day = models.PositiveSmallIntegerField(db_column="train_day", null=True, blank=True,
+                                                    verbose_name="Journée d'entraînement")
+    training_type = models.CharField(max_length=255, null=True, blank=True, db_column="type_train",
+                                     verbose_name="Type d'entraînement")
+    exercises = models.ManyToManyField('TrainingExercise', null=True, blank=True)
+
+    def __str__(self):
+        return "Entraînement de %s pour %s" % (self.training_type, self.client )
+
+    class Meta:
+        db_table = "client_training_day"
+        verbose_name = "Journée d'entraînement Client"
+        verbose_name_plural = "Journées d'entraînement des Clients"
+
+
 class Nutrition(models.Model):
     nom_repas = models.TextField(verbose_name="Repas", db_column="repas", null=True, blank=True)
     qte_calories = models.FloatField(blank=True, verbose_name="Calories", null=True, db_column='Calories',

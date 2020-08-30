@@ -1,5 +1,6 @@
 from django.contrib import admin
-from Fitness.models import Client, TrainingProgram, Nutrition, ClientBaseNutrition, ClientNutritionPreference
+from Fitness.models import Client, TrainingProgram, Nutrition, ClientBaseNutrition, ClientNutritionPreference, \
+    TrainingExercise, ClientTrainingDayProgram
 
 # Register your models here.
 admin.site.site_header = 'KN Fitness App'
@@ -13,7 +14,7 @@ class ClientAdmin(admin.ModelAdmin):
     list_filter = ('sexe',)
 
 
-@admin.register(TrainingProgram)
+# @admin.register(TrainingProgram)
 class TrainingProgramAdmin(admin.ModelAdmin):
     list_display = ('client', 'nom_exercice', 'nombre_sets', 'nombre_reps', 'training_day', 'training_type')
 
@@ -31,3 +32,13 @@ class ClientBaseNutritionAdmin(admin.ModelAdmin):
 @admin.register(ClientNutritionPreference)
 class ClientNutritionPreferenceAdmin(admin.ModelAdmin):
     list_display = ('client', 'full_extra_calories', 'full_fat', 'full_carbs', 'full_proteins')
+
+
+@admin.register(TrainingExercise)
+class TrainingExerciseAdmin(admin.ModelAdmin):
+    list_display = ('nom_exercise', 'nombre_sets', 'nombre_reps')
+
+
+@admin.register(ClientTrainingDayProgram)
+class ClientTrainingDayProgramAdmin(admin.ModelAdmin):
+    list_display = ('client', 'training_type', 'training_day')
