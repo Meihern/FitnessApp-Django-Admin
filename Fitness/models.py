@@ -242,7 +242,7 @@ class ClientTrainingDayProgram(models.Model):
                                                     verbose_name="Journée d'entraînement")
     training_type = models.CharField(max_length=255, null=True, blank=True, db_column="type_train",
                                      verbose_name="Type d'entraînement")
-    exercises = models.ManyToManyField('TrainingExercise', null=True, blank=True)
+    exercises = models.ManyToManyField('TrainingExercise', blank=True)
 
     def __str__(self):
         return "Entraînement de %s pour %s" % (self.training_type, self.client )

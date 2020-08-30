@@ -39,6 +39,12 @@ class TrainingExerciseAdmin(admin.ModelAdmin):
     list_display = ('nom_exercise', 'nombre_sets', 'nombre_reps')
 
 
+class ExercisesInLine(admin.TabularInline):
+    model = TrainingExercise
+
+
 @admin.register(ClientTrainingDayProgram)
 class ClientTrainingDayProgramAdmin(admin.ModelAdmin):
     list_display = ('client', 'training_type', 'training_day')
+    filter_horizontal = ('exercises', )
+
