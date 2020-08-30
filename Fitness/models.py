@@ -193,9 +193,12 @@ class ClientBaseNutrition(models.Model):
 
 
 class TrainingProgram(models.Model):
-    nom_exercice = models.CharField(max_length=50, db_column="exercice", null=False, blank=False)
-    nombre_sets = models.PositiveSmallIntegerField(db_column="sets", null=False, blank=False)
-    nombre_reps = models.PositiveSmallIntegerField(db_column="reps", null=False, blank=False)
+    nom_exercice = models.CharField(max_length=50, db_column="exercice", null=True, blank=True, verbose_name="Nom d'Exercice")
+    nombre_sets = models.PositiveSmallIntegerField(db_column="sets", null=True, blank=True, verbose_name="Nombre des Sets")
+    nombre_reps = models.PositiveSmallIntegerField(db_column="reps", null=True, blank=True, verbose_name="Nombre de Reps")
+    training_day = models.PositiveSmallIntegerField(db_column="train_day", null=True, blank=True, verbose_name="Journée d'entraînement")
+    training_type = models.CharField(max_length=255, null=True, blank=True, db_column="type_train", verbose_name="Type d'entraînement")
+    client = models.ForeignKey('Client', on_delete=models.CASCADE, blank=True, null=True)
 
     def __str__(self):
         return self.nom_exercice
@@ -206,15 +209,16 @@ class TrainingProgram(models.Model):
 
 
 class Nutrition(models.Model):
-    nom_repas = models.TextField(verbose_name="Repas", db_column="repas", null=False, blank=False)
-    qte_calories = models.FloatField(blank=False, verbose_name="Calories", null=False, db_column='Calories',
+    nom_repas = models.TextField(verbose_name="Repas", db_column="repas", null=True, blank=True)
+    qte_calories = models.FloatField(blank=True, verbose_name="Calories", null=True, db_column='Calories',
                                      validators=[MinValueValidator(0)])
-    qte_fat = models.FloatField(blank=False, verbose_name="Fat", null=False, db_column="Fat",
+    qte_fat = models.FloatField(blank=True, verbose_name="Fat", null=True, db_column="Fat",
                                 validators=[MinValueValidator(0)])
-    qte_carbs = models.FloatField(blank=False, verbose_name="Carbs", null=False, db_column="Carbs",
+    qte_carbs = models.FloatField(blank=True, verbose_name="Carbs", null=True, db_column="Carbs",
                                   validators=[MinValueValidator(0)])
-    qte_protein = models.FloatField(blank=False, verbose_name="Proteins", null=False, db_column="Protein",
+    qte_protein = models.FloatField(blank=True, verbose_name="Proteins", null=True, db_column="Protein",
                                     validators=[MinValueValidator(0)])
+    num_repas = models.PositiveSmallIntegerField(blank=True, null=True, verbose_name="Numéro de repas", db_column="num_repas")
 
     def __str__(self):
         return self.nom_repas
