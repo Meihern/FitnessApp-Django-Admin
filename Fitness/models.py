@@ -58,22 +58,29 @@ class Client(models.Model):
 
 class ClientNutritionPreference(models.Model):
     client = models.OneToOneField('Client', on_delete=models.CASCADE, unique=True)
-    extra_calories = models.IntegerField(blank=False, null=False, db_column="extra_calories", verbose_name="Calories Extra")
-    percentage_fat = models.DecimalField(blank=False, null=False, db_column="percentage_fat", verbose_name="Fat Percentage", max_digits=3, decimal_places=2, validators=[MinValueValidator(0)])
-    percentage_carbs = models.DecimalField(blank=False, null=False, db_column="percentage_carbs", verbose_name="Carbs Percentage", max_digits=3, decimal_places=2, validators=[MinValueValidator(0)])
-    percentage_proteins = models.DecimalField(blank=False, null=False, db_column="percentage_proteins", verbose_name="Proteins Percentage", max_digits=3, decimal_places=2, validators=[MinValueValidator(0)])
+    extra_calories = models.IntegerField(blank=False, null=False, db_column="extra_calories",
+                                         verbose_name="Calories Extra")
+    percentage_fat = models.DecimalField(blank=False, null=False, db_column="percentage_fat",
+                                         verbose_name="Fat Percentage", max_digits=3, decimal_places=2,
+                                         validators=[MinValueValidator(0)])
+    percentage_carbs = models.DecimalField(blank=False, null=False, db_column="percentage_carbs",
+                                           verbose_name="Carbs Percentage", max_digits=3, decimal_places=2,
+                                           validators=[MinValueValidator(0)])
+    percentage_proteins = models.DecimalField(blank=False, null=False, db_column="percentage_proteins",
+                                              verbose_name="Proteins Percentage", max_digits=3, decimal_places=2,
+                                              validators=[MinValueValidator(0)])
 
     def extra_calories_property(self):
         return '%s kcal' % (str(round(self.extra_calories)))
 
     def fat_property(self):
-        return str(round(self.percentage_fat*100)) + '%'
+        return str(round(self.percentage_fat * 100)) + '%'
 
     def carbs_property(self):
-        return str(round(self.percentage_carbs*100)) + '%'
+        return str(round(self.percentage_carbs * 100)) + '%'
 
     def proteins_property(self):
-        return str(round(self.percentage_proteins*100)) + '%'
+        return str(round(self.percentage_proteins * 100)) + '%'
 
     extra_calories_property.short_description = 'Calories en kcal'
     extra_calories_property.admin_order_field = 'extra_calories'
@@ -94,7 +101,6 @@ class ClientNutritionPreference(models.Model):
     proteins_property.admin_order_field = 'taux_proteins'
 
     full_proteins = property(proteins_property)
-
 
     def __str__(self):
         return "Preferences of %s" % self.client
@@ -193,11 +199,16 @@ class ClientBaseNutrition(models.Model):
 
 
 class TrainingProgram(models.Model):
-    nom_exercice = models.CharField(max_length=50, db_column="exercice", null=True, blank=True, verbose_name="Nom d'Exercice")
-    nombre_sets = models.PositiveSmallIntegerField(db_column="sets", null=True, blank=True, verbose_name="Nombre des Sets")
-    nombre_reps = models.PositiveSmallIntegerField(db_column="reps", null=True, blank=True, verbose_name="Nombre de Reps")
-    training_day = models.PositiveSmallIntegerField(db_column="train_day", null=True, blank=True, verbose_name="Journée d'entraînement")
-    training_type = models.CharField(max_length=255, null=True, blank=True, db_column="type_train", verbose_name="Type d'entraînement")
+    nom_exercice = models.CharField(max_length=50, db_column="exercice", null=True, blank=True,
+                                    verbose_name="Nom d'Exercice")
+    nombre_sets = models.PositiveSmallIntegerField(db_column="sets", null=True, blank=True,
+                                                   verbose_name="Nombre des Sets")
+    nombre_reps = models.PositiveSmallIntegerField(db_column="reps", null=True, blank=True,
+                                                   verbose_name="Nombre de Reps")
+    training_day = models.PositiveSmallIntegerField(db_column="train_day", null=True, blank=True,
+                                                    verbose_name="Journée d'entraînement")
+    training_type = models.CharField(max_length=255, null=True, blank=True, db_column="type_train",
+                                     verbose_name="Type d'entraînement")
     client = models.ForeignKey('Client', on_delete=models.CASCADE, blank=True, null=True)
 
     def __str__(self):
@@ -218,7 +229,9 @@ class Nutrition(models.Model):
                                   validators=[MinValueValidator(0)])
     qte_protein = models.FloatField(blank=True, verbose_name="Proteins", null=True, db_column="Protein",
                                     validators=[MinValueValidator(0)])
-    num_repas = models.PositiveSmallIntegerField(blank=True, null=True, verbose_name="Numéro de repas", db_column="num_repas")
+    num_repas = models.PositiveSmallIntegerField(blank=True, null=True, verbose_name="Numéro de repas",
+                                                 db_column="num_repas")
+    client = models.ForeignKey('Client', on_delete=models.CASCADE, blank=True, null=True)
 
     def __str__(self):
         return self.nom_repas

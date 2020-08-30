@@ -20,7 +20,7 @@ class TrainingProgramAdmin(admin.ModelAdmin):
 
 @admin.register(Nutrition)
 class NutritionAdmin(admin.ModelAdmin):
-    list_display = ('nom_repas', 'qte_calories', 'qte_fat', 'qte_carbs', 'qte_protein', 'num_repas')
+    list_display = ('client', 'nom_repas', 'qte_calories', 'qte_fat', 'qte_carbs', 'qte_protein', 'num_repas')
 
 
 @admin.register(ClientBaseNutrition)
