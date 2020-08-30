@@ -15,12 +15,12 @@ class ClientAdmin(admin.ModelAdmin):
 
 @admin.register(TrainingProgram)
 class TrainingProgramAdmin(admin.ModelAdmin):
-    list_display = ('nom_exercice', 'nombre_sets', 'nombre_reps')
+    list_display = ('client', 'nom_exercice', 'nombre_sets', 'nombre_reps', 'training_day', 'training_type')
 
 
 @admin.register(Nutrition)
 class NutritionAdmin(admin.ModelAdmin):
-    list_display = ('nom_repas', 'qte_calories', 'qte_fat', 'qte_carbs', 'qte_protein')
+    list_display = ('nom_repas', 'qte_calories', 'qte_fat', 'qte_carbs', 'qte_protein', 'num_repas')
 
 
 @admin.register(ClientBaseNutrition)
