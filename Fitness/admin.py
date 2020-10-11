@@ -5,6 +5,7 @@ from django.shortcuts import get_object_or_404
 from django.template.loader import get_template
 from django.urls import reverse
 from django.utils.html import format_html
+from django.utils.timezone import now
 
 from Fitness.models import Client, Nutrition, ClientBaseNutrition, ClientNutritionPreference, \
     TrainingExercise, ClientTrainingDayProgram
@@ -44,8 +45,14 @@ class ClientAdmin(admin.ModelAdmin):
         client = get_object_or_404(Client, pk=client_id)
         context = {
             'nom_prenom': client.prenom + ' ' + client.nom,
-            'age': client.age,
-            'taille': client.taille
+            'age': client.full_age,
+            'taille': client.full_taille,
+            'poids': client.full_poids,
+            'calories': ClientBaseNutrition.objects.get(client=client).full_kcalories,
+            'objectif': 'Prise de Poids' if ClientNutritionPreference.objects.get(client=client).extra_calories > 0 else 'Perte de Poids',
+            'repas': list(Nutrition.objects.filter(client=client)),
+            'trainings': list(ClientTrainingDayProgram.objects.filter(client=client)),
+            'date': now().date(),
         }
         if context:
             template_name = 'PDF/clientPDF.html'

@@ -4,8 +4,116 @@
 <head>
     <meta charset="UTF-8">
     <title>Programme de {{ nom_prenom }} </title>
+    <style>
+        table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        td {
+            border: 1px solid black;
+            text-align: left;
+            padding: 8px;
+        }
+    </style>
 </head>
 <body>
-<h1>Monsieur {{ nom_prenom }}</h1>
+<h1 align="right">Date: {{ date }}</h1>
+<h1>Nom Complet : {{ nom_prenom }}</h1>
+<h1 align="center">
+    Age : <span>{{ age }}</span> &nbsp; Taille : <span>{{ taille }}</span>&nbsp; Poids : <span>{{ poids }}</span>
+
+</h1>
+<h1>Objectif : {{ objectif }}</h1>
+<h1>Calories : {{ calories }} </h1>
+<br>
+<div>
+<h1 align="center">Meal Plan :  </h1>
+<table>
+    <thead>
+        <tr>
+            <th>
+                N° Repas
+            </th>
+            <th>
+                Repas
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for data in repas %}
+            <tr>
+                <td>
+                    {{ data.num_repas }}
+                </td>
+                <td>
+                    {{ data.nom_repas }}
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<br>
+</div>
+<div>
+    <h1 align="center">Training Program :  </h1>
+    <table>
+        <thead>
+        <tr>
+            <th>
+                Journée d'entraînement
+            </th>
+            <th>
+                Type d'entraînement
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for data in trainings %}
+            <tr>
+            <td>
+                {{ data.training_day }}
+            </td>
+            <td>
+                {{ data.training_type }}
+            </td>
+            <td>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>
+                                Nom Exercice
+                            </th>
+                            <th>
+                                N° Sets
+                            </th>
+                            <th>
+                                N° Reps
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for exercice in data.exercises.all %}
+                        <tr>
+                        <td>
+                            {{ exercice.nom_exercise }}
+                        </td>
+                        <td>
+                            {{ exercice.nombre_sets }}
+                        </td>
+                        <td>
+                            {{ exercice.nombre_reps }}
+                        </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
 </body>
 </html>
