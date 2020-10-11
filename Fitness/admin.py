@@ -43,15 +43,24 @@ class ClientAdmin(admin.ModelAdmin):
 
     def generate_pdf(self, request, client_id, *args, **kwargs):
         client = get_object_or_404(Client, pk=client_id)
+        extra_calories = ClientNutritionPreference.objects.get(client=client).extra_calories
+        if extra_calories > 0:
+            objectif =  'Perte du Poids'
+        elif extra_calories == 0:
+            objectif = 'Stabilité du Poids'
+        else:
+            objectif = 'Prise du Poids'
+
+
         context = {
             'nom_prenom': client.prenom + ' ' + client.nom,
             'age': client.full_age,
             'taille': client.full_taille,
             'poids': client.full_poids,
             'calories': ClientBaseNutrition.objects.get(client=client).full_kcalories,
-            'objectif': 'Prise de Poids' if ClientNutritionPreference.objects.get(client=client).extra_calories > 0 else 'Perte de Poids',
-            'repas': list(Nutrition.objects.filter(client=client)),
-            'trainings': list(ClientTrainingDayProgram.objects.filter(client=client)),
+            'objectif': objectif,
+            'repas': list(Nutrition.objects.filter(client=client).order_by('num_repas')),
+            'trainings': list(ClientTrainingDayProgram.objects.filter(client=client).order_by('training_day')),
             'date': now().date(),
         }
         if context:
