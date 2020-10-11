@@ -45,11 +45,11 @@ class ClientAdmin(admin.ModelAdmin):
         client = get_object_or_404(Client, pk=client_id)
         extra_calories = ClientNutritionPreference.objects.get(client=client).extra_calories
         if extra_calories > 0:
-            objectif =  'Perte du Poids'
+            objectif =  'Prise du Poids'
         elif extra_calories == 0:
             objectif = 'Stabilité du Poids'
         else:
-            objectif = 'Prise du Poids'
+            objectif = 'Perte du Poids'
 
 
         context = {
