@@ -9,7 +9,7 @@ from django.utils.html import format_html
 from Fitness.models import Client, Nutrition, ClientBaseNutrition, ClientNutritionPreference, \
     TrainingExercise, ClientTrainingDayProgram
 # Register your models here.
-from PDF.utils import render_to_pdf, build_pdf_response
+from PDF.utils import render_to_pdf
 
 admin.site.site_header = 'KN Fitness App'
 admin.site.site_title = 'KN Fitness App'
@@ -26,7 +26,8 @@ class ClientAdmin(admin.ModelAdmin):
         custom_urls = [
             url(r'^(?P<client_id>.+)/generate_pdf/$',
                 self.admin_site.admin_view(self.generate_pdf),
-                name='generate-pdf')]
+                name='generate-pdf'
+                )]
 
         return custom_urls + urls
 
@@ -52,9 +53,15 @@ class ClientAdmin(admin.ModelAdmin):
             html = template.render(context)
             pdf = render_to_pdf(template_name, context)
             if pdf:
-                build_pdf_response(request, pdf, context)
-            else:
-                return HttpResponse("Not found")
+                response = HttpResponse(pdf, content_type='application/pdf')
+                filename = "Programme_%s.pdf" % (context['nom_prenom'].replace(' ', '_'))
+                content = "inline; filename=%s" % filename
+                download = request.GET.get("download")
+                if download:
+                    content = "attachment; filename=%s" % filename
+                response['Content-Disposition'] = content
+                return response
+            return HttpResponse("Not found")
         else:
             return HttpResponse("No context")
 

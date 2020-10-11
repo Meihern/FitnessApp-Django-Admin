@@ -47,17 +47,6 @@ def render_to_pdf(template_src, context_dict={}):
     return None
 
 
-def build_pdf_response(request, pdf_file, context_dict):
-    response = HttpResponse(pdf_file, content_type='application/pdf')
-    filename = "Programme_%s.pdf" % (context_dict['nom_prenom'].replace(' ', '_'))
-    content = "inline; filename=%s" % filename
-    download = request.GET.get("download")
-    if download:
-        content = "attachment; filename=%s" % filename
-    response['Content-Disposition'] = content
-    return response
-
-
 def fetch_resources(uri, rel):
     path = os.path.join(settings.MEDIA_ROOT, uri.replace(settings.MEDIA_URL, ""))
     return path
