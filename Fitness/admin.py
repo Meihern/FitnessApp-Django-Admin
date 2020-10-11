@@ -53,7 +53,8 @@ class ClientAdmin(admin.ModelAdmin):
             pdf = render_to_pdf(template_name, context)
             if pdf:
                 build_pdf_response(request, pdf, context)
-            return HttpResponse("Not found")
+            else:
+                return HttpResponse("Not found")
         else:
             return HttpResponse("No context")
 
