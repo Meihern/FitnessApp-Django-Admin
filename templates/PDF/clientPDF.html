@@ -9,8 +9,19 @@
             font-family: arial, sans-serif;
             border-collapse: collapse;
             width: 100%;
+            page-break-inside: auto;
         }
-
+        tr    {
+            page-break-inside:avoid;
+            page-break-after:auto;
+            border: 1px solid black;
+        }
+        thead {
+            display:table-header-group;
+            height: 50px;
+            font-family: "Helvetica Neue", sans-serif;
+            }
+        tfoot { display:table-footer-group }
         td {
             border: 1px solid black;
             text-align: left;
@@ -44,17 +55,17 @@
     <tbody>
         {% for data in repas %}
             <tr>
-                <td>
+                <td width="20%">
                     {{ data.num_repas }}
                 </td>
-                <td>
+                <td width="80%">
                     {{ data.nom_repas }}
                 </td>
             </tr>
         {% endfor %}
     </tbody>
 </table>
-<br>
+<div style="page-break-before:always">&nbsp;</div>
 </div>
 <div>
     <h1 align="center">Training Program :  </h1>
@@ -62,23 +73,26 @@
         <thead>
         <tr>
             <th>
-                Journée d'entraînement
+                Journée Entraînement
             </th>
             <th>
-                Type d'entraînement
+                Type Entraînement
+            </th>
+            <th>
+                Liste Exercices
             </th>
         </tr>
         </thead>
         <tbody>
         {% for data in trainings %}
             <tr>
-            <td>
+            <td width="10%">
                 {{ data.training_day }}
             </td>
-            <td>
+            <td width="20%">
                 {{ data.training_type }}
             </td>
-            <td>
+            <td width="70%">
                 <table>
                     <thead>
                         <tr>
@@ -89,20 +103,20 @@
                                 N° Sets
                             </th>
                             <th>
-                                N° Reps
+                                Répétitions
                             </th>
                         </tr>
                     </thead>
                     <tbody>
                     {% for exercice in data.exercises.all %}
                         <tr>
-                        <td>
+                        <td width="60%">
                             {{ exercice.nom_exercise }}
                         </td>
-                        <td>
+                        <td width="10%">
                             {{ exercice.nombre_sets }}
                         </td>
-                        <td>
+                        <td width="30%">
                             {{ exercice.nombre_reps }}
                         </td>
                         </tr>

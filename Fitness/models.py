@@ -203,8 +203,7 @@ class TrainingProgram(models.Model):
                                     verbose_name="Nom d'Exercice")
     nombre_sets = models.PositiveSmallIntegerField(db_column="sets", null=True, blank=True,
                                                    verbose_name="Nombre des Sets")
-    nombre_reps = models.PositiveSmallIntegerField(db_column="reps", null=True, blank=True,
-                                                   verbose_name="Nombre de Reps")
+    nombre_reps = models.CharField(db_column="reps", null=True, blank=True, max_length=50, verbose_name="Nombre de Reps")
     training_day = models.PositiveSmallIntegerField(db_column="train_day", null=True, blank=True,
                                                     verbose_name="Journée d'entraînement")
     training_type = models.CharField(max_length=255, null=True, blank=True, db_column="type_train",
@@ -224,7 +223,7 @@ class TrainingExercise(models.Model):
                                     verbose_name="Nom d'Exercice")
     nombre_sets = models.PositiveSmallIntegerField(db_column="sets", null=True, blank=True,
                                                    verbose_name="Nombre des Sets")
-    nombre_reps = models.PositiveSmallIntegerField(db_column="reps", null=True, blank=True,
+    nombre_reps = models.CharField(db_column="reps", max_length=50, null=True, blank=True,
                                                    verbose_name="Nombre de Reps")
 
     def __str__(self):
